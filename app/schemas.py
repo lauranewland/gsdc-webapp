@@ -26,7 +26,11 @@ class UserBase(BaseModel):
 class UserGet(UserBase):
     user_id: int
 
+    class Config:
+        orm_mode = True
 
+
+# UserCreate class represents all of Userbase and password
 class UserCreate(UserBase):
     password: str
 

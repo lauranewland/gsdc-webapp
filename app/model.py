@@ -26,7 +26,6 @@ class Users(Base):
     co_app_email = Column(String(100))
     pref_communication = Column(String(50), nullable=False)
     print_permissions = Column(Boolean, nullable=False)
-    username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)
     member_type = Column(String(100), nullable=False)
     member_standing = Column(String(25), nullable=False)
@@ -35,7 +34,7 @@ class Users(Base):
     num_breedings = Column(Integer)
 
     # Add Relationship to Interest Table
-    interest = relationship('Interest', backref='user')
+    # interest = relationship('Interest', back_populates='user')
 
     def __repr__(self):
         return f'<user_id={self.user_id}, fname={self.fname}, lname={self.lname}>'
@@ -67,7 +66,7 @@ class Interest(Base):
     breeding = Column(Boolean)
     other = Column(String(100))
 
-    user = relationship('User', backref='interest')
+    # user = relationship('User', back_populates='interest')
 
     def __repr__(self):
         return f'<interest_id={self.interest_id}, obedience={self.obedience}, training={self.training}>'
