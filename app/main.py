@@ -30,9 +30,13 @@ async def root():
     return {"message": "Hello World"}
 
 
+# API Get Response_Model will return a list of all users
 @app.get('/users/', response_model=List[schemas.UserGet])
-def read_users():
-    pass
+def read_all_users(db: Session = Depends(get_db)):
+    """Returns a all users"""
+
+    users = crud.get_all_users(db)
+    return users
 
 
 # Response_model is what will be returned from the post
@@ -50,3 +54,8 @@ def create_user(post_body: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=post_body)
 
+
+@app.post('/users/{user_id}/interest/', response_model=schemas.Interest)
+def create_interest_for_user(user_id: int, post_body: schemas.CreateInterest, db: Session = Depends(get_db)):
+    """Returns a newly created item"""
+    return crud.create_user_interest(db=db, interest=post_body, user_id=user_id)
