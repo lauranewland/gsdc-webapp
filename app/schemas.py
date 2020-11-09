@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 class UserBase(BaseModel):
@@ -30,6 +30,7 @@ class UserGet(UserBase):
         class so it will not be sent through the API
     """
     user_id: int
+    # interests: List[Interest] = []
 
     # orm_mode tells Pydantic model to read the data even if its not a dict
     class Config:
@@ -46,21 +47,21 @@ class UserCreate(UserBase):
 
 class InterestBase(BaseModel):
     """This class contains all common interest attributes"""
-    obedience: bool
-    rally: bool
-    conformation: bool
-    agility: bool
-    herding: bool
-    scentwork: bool
-    fun_match: bool
-    shep_o_gram: bool
-    training: bool
-    hospitality: bool
-    fundraising: bool
-    gsd_fun_day: bool
-    demo_mn_fair: bool
-    annual_banquet: bool
-    breeding: bool
+    obedience: bool = False
+    rally: bool = False
+    conformation: bool = False
+    agility: bool = False
+    herding: bool = False
+    scentwork: bool = False
+    fun_match: bool = False
+    shep_o_gram: bool = False
+    training: bool = False
+    hospitality: bool = False
+    fundraising: bool = False
+    gsd_fun_day: bool = False
+    demo_mn_fair: bool = False
+    annual_banquet: bool = False
+    breeding: bool = False
     other: Optional[str] = None
 
 
