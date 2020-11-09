@@ -44,7 +44,7 @@ class Interest(Base):
     """Data Model for User Interest"""
 
     # Creates a table of user interests
-    __tablename__ = 'interest'
+    __tablename__ = 'interests'
 
     # Defines the Schema for the users interest table
     interest_id = Column(Integer, primary_key=True)
@@ -66,6 +66,7 @@ class Interest(Base):
     breeding = Column(Boolean)
     other = Column(String(100))
 
+    # Add Relationship to Users Table
     # user = relationship('User', back_populates='interest')
 
     def __repr__(self):
