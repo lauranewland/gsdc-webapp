@@ -61,7 +61,7 @@ class InterestBase(BaseModel):
     demo_mn_fair: bool
     annual_banquet: bool
     breeding: bool
-    other: str
+    other: Optional[str] = None
 
 
 class Interest(InterestBase):

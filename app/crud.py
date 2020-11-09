@@ -3,13 +3,13 @@ import model
 import schemas
 
 
-# Queries a user by email
 def get_user_by_email(db: Session, email: str):
+    """Queries a user by email"""
     return db.query(model.Users).filter(model.Users.email == email).first()
 
 
-# Creates a user
 def create_user(db: Session, user: schemas.UserCreate):
+    """Creates a user"""
 
     # Creates a Fake hashed password
     hashed_password = user.password + "thisisaplaceholder"
@@ -50,6 +50,8 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def create_user_interest(db: Session, interest: schemas.CreateInterest, user_id: int):
+    """Creates a user interest"""
+
     db_interest = model.Interest(
         interest_id=user_id,
         obedience=interest.obedience,
@@ -70,10 +72,10 @@ def create_user_interest(db: Session, interest: schemas.CreateInterest, user_id:
         other=interest.other
     )
 
-    # Adds user to the database session
+    # Adds user interest to the database session
     db.add(db_interest)
 
-    # Commits user to the database
+    # Commits user interest to the database
     db.commit()
 
     # Refreshes the database instances
