@@ -48,3 +48,35 @@ def create_user(db: Session, user: schemas.UserCreate):
 
     return db_user
 
+
+def create_user_interest(db: Session, interest: schemas.CreateInterest, user_id: int):
+    db_interest = model.Interest(
+        interest_id=user_id,
+        obedience=interest.obedience,
+        rally=interest.rally,
+        conformation=interest.conformation,
+        agility=interest.agility,
+        herding=interest.herding,
+        scentwork=interest.scentwork,
+        fun_match=interest.fun_match,
+        shep_o_gram=interest.shep_o_gram,
+        training=interest.training,
+        hospitality=interest.hospitality,
+        fundraising=interest.fundraising,
+        gsd_fun_day=interest.gsd_fun_day,
+        demo_mn_fair=interest.demo_mn_fair,
+        annual_banquet=interest.annual_banquet,
+        breeding=interest.breeding,
+        other=interest.other
+    )
+
+    # Adds user to the database session
+    db.add(db_interest)
+
+    # Commits user to the database
+    db.commit()
+
+    # Refreshes the database instances
+    db.refresh(db_interest)
+
+    return db_interest
