@@ -37,6 +37,45 @@ class UserGet(UserBase):
 
 
 class UserCreate(UserBase):
-    """UserCreate inherits the attributes from the UserBase Class + password"""
+    """Creates a User
+        UserCreate inherits the attributes from the UserBase Class
+        + password
+    """
     password: str
 
+
+class InterestBase(BaseModel):
+    """This class contains all common interest attributes"""
+    obedience: bool
+    rally: bool
+    conformation: bool
+    agility: bool
+    herding: bool
+    scentwork: bool
+    fun_match: bool
+    shep_o_gram: bool
+    training: bool
+    hospitality: bool
+    fundraising: bool
+    gsd_fun_day: bool
+    demo_mn_fair: bool
+    annual_banquet: bool
+    breeding: bool
+    other: str
+
+
+class Interest(InterestBase):
+    """Interest inherits all attributes from the InterestBase class
+        + interest_id & user_id
+    """
+    interest_id: int
+    user_id: int
+
+    class Config:
+        """orm_mode tells Pydantic model to read the data even if its not a dict"""
+        orm_mode = True
+
+
+class CreateInterest(InterestBase):
+    """Creates an Interest"""
+    pass
