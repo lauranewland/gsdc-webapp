@@ -12,9 +12,9 @@ class UserBase(BaseModel):
     phone: str
     email: str
     app_date: Optional[str] = None
-    co_app_fname: Optional[str] = None
-    co_app_lname: Optional[str] = None
-    co_app_email: Optional[str] = None
+    # co_app_fname: Optional[str] = None
+    # co_app_lname: Optional[str] = None
+    # co_app_email: Optional[str] = None
     pref_communication: str
     print_permissions: bool
     member_type: str
