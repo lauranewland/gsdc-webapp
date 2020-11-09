@@ -1,11 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
-import schemas
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
+from typing import List
 import crud
 import model
 import schemas
-from typing import List
 
 
 # Creates database tables
@@ -16,8 +15,8 @@ model.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-# Creates the database session
 def get_db():
+    """Creates the database session"""
     db = SessionLocal()
     try:
         yield db
@@ -25,9 +24,9 @@ def get_db():
         db.close()
 
 
-# Test Route
 @app.get("/")
 async def root():
+    """Test Route"""
     return {"message": "Hello World"}
 
 

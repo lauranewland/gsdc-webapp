@@ -2,8 +2,8 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# This class contains all common attributes every user will have
 class UserBase(BaseModel):
+    """This class contains all common attributes every user will have"""
     fname: str
     lname: str
     address: str
@@ -24,9 +24,11 @@ class UserBase(BaseModel):
     num_breedings: Optional[int] = None
 
 
-# UserGet inherits the attributes from the UserBase Class + user_id
 class UserGet(UserBase):
-    # Password is not included in the UserGet class so it will not be sent through the API
+    """ UserGet inherits the attributes from the UserBase Class + user_id
+        Password is not included in the UserGet
+        class so it will not be sent through the API
+    """
     user_id: int
 
     # orm_mode tells Pydantic model to read the data even if its not a dict
@@ -34,7 +36,7 @@ class UserGet(UserBase):
         orm_mode = True
 
 
-# UserCreate inherits the attributes from the UserBase Class + password
 class UserCreate(UserBase):
+    """UserCreate inherits the attributes from the UserBase Class + password"""
     password: str
 
