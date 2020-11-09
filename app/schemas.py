@@ -29,6 +29,7 @@ class UserGet(UserBase):
     # Password is not included in the UserGet class so it will not be sent through the API
     user_id: int
 
+    # orm_mode tells Pydantic model to read the data even if its not a dict
     class Config:
         orm_mode = True
 
