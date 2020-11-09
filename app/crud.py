@@ -8,6 +8,16 @@ def get_user_by_email(db: Session, email: str):
     return db.query(model.Users).filter(model.Users.email == email).first()
 
 
+def get_all_users(db: Session):
+    """Queries and returns all users"""
+    return db.query(model.Users).all()
+
+
+def get_user(db: Session, user_id: int):
+    """Queries and returns a user"""
+    return db.query(model.Users).filter(model.User.user_id == user_id).first()
+
+
 def create_user(db: Session, user: schemas.UserCreate):
     """Creates a user"""
 
@@ -52,25 +62,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 def create_user_interest(db: Session, interest: schemas.CreateInterest, user_id: int):
     """Creates a user interest"""
 
-    db_interest = model.Interest(
-        interest_id=user_id,
-        obedience=interest.obedience,
-        rally=interest.rally,
-        conformation=interest.conformation,
-        agility=interest.agility,
-        herding=interest.herding,
-        scentwork=interest.scentwork,
-        fun_match=interest.fun_match,
-        shep_o_gram=interest.shep_o_gram,
-        training=interest.training,
-        hospitality=interest.hospitality,
-        fundraising=interest.fundraising,
-        gsd_fun_day=interest.gsd_fun_day,
-        demo_mn_fair=interest.demo_mn_fair,
-        annual_banquet=interest.annual_banquet,
-        breeding=interest.breeding,
-        other=interest.other
-    )
+    db_interest = model.Interest(**interest.dict(), user_id=user_id)
 
     # Adds user interest to the database session
     db.add(db_interest)
