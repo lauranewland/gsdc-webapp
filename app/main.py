@@ -1,4 +1,7 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
 from typing import List
@@ -14,6 +17,12 @@ model.Base.metadata.create_all(bind=engine)
 # Creates an instance of the FastAPI Class
 app = FastAPI()
 
+# Future use when working with CSS files for the HTML pages
+# app.mount('/static', StaticFiles(directory='static'), name='static')
+
+#
+templates = Jinja2Templates(directory='templates')
+
 
 def get_db():
     """Creates the database session"""
@@ -24,10 +33,11 @@ def get_db():
         db.close()
 
 
-@app.get("/")
-async def root():
-    """Test Route"""
-    return {"message": "Hello World"}
+@app.get("/", response_class=HTMLResponse)
+def root(request: Request):
+    """Renders Homepage"""
+
+    return templates.TemplateResponse('homepage.html', {'request': request})
 
 
 # API Get Response_Model will return a list of all users
@@ -72,3 +82,11 @@ def read_all_interest(db: Session = Depends(get_db)):
 
     interests = crud.get_all_interest(db)
     return interests
+
+
+@app.get("/health")
+async def health_check():
+    """Health Check"""
+    return {"status": "ok"}
+
+
