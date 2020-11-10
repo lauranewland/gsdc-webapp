@@ -74,3 +74,10 @@ def create_user_interest(db: Session, interest: schemas.CreateInterest, user_id:
     db.refresh(db_interest)
 
     return db_interest
+
+
+def get_all_interest(db: Session):
+    """Queries and returns all users interests"""
+
+    return db.query(model.Interest).all()
+
