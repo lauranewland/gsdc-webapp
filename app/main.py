@@ -57,5 +57,18 @@ def create_user(post_body: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @app.post('/users/{user_id}/interest/', response_model=schemas.Interest)
 def create_interest_for_user(user_id: int, post_body: schemas.CreateInterest, db: Session = Depends(get_db)):
-    """Returns a newly created item"""
+    """Returns a newly created item
+
+    .. note::
+
+        :returns: Creates interests for the specified user.
+    """
     return crud.create_user_interest(db=db, interest=post_body, user_id=user_id)
+
+
+@app.get('/interests/', response_model=List[schemas.Interest])
+def read_all_interest(db: Session = Depends(get_db)):
+    """Returns a all users interests"""
+
+    interests = crud.get_all_interest(db)
+    return interests
